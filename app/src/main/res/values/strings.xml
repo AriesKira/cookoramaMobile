@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Cookorama</string>
+    <string name="login">Login</string>
+    <string name="email">Email</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="login_button">Login</string>
+    <string name="password_forgotten">Forgot your password?</string>
+    <string name="trademark">© 2023 - Cookorama</string>
+    <string name="home">Home</string>
+    <string name="search">Search</string>
+    <string name="recipe">Recipe</string>
+    <string name="recipes">Recipes</string>
+    <string name="titleRecipes">👨‍🍳👨🏻‍🍳👨🏽‍🍳👨🏿‍🍳 ~ Recipes ~ 👩🏿‍🍳👩🏽‍🍳👩🏻‍🍳👩‍🍳</string>
+    <string name="shop">Shop</string>
+    <string name="article">Article</string>
+    <string name="articles">Articles</string>
+    <string name="titleArticles">🛒🛒🛒🛒 ~ Articles ~ 🛒🛒🛒🛒</string>
+    <string name="profile">Profile</string>
+    <string name="courses">Courses</string>
+    <string name="titleCourses">📕📗📘📙 ~ Courses ~ 📙📘📗📕</string>
+    <string name="event">Event</string>
+    <string name="events">Events</string>
+    <string name="titleEvents">🎪🍾🥂🎪 ~ Events ~ 🎪🍾🥂🎪</string>
+
+</resources>
