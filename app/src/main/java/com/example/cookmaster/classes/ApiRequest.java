@@ -1,2 +1,8 @@
-package com.example.cookmaster.classes;public class ApiRequest {
+package com.example.cookmaster.classes;
+
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+
+
+public class ApiRequest {
 }

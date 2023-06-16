@@ -1,19 +1,73 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ShopFragment"
-    android:background="@color/mustardYellow">
-
-    <TextView
-        android:layout_width="wrap_content"
+    android:background="@color/salmon">
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/shop"
-        android:layout_gravity="center"
-        android:textSize="36sp"
-        android:textColor="@color/black"
-        />
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            tools:ignore="UselessParent">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/shop"
+                android:textSize="36sp"
+                android:textColor="@color/black"
+                android:fontFamily="@font/roboto_condensed"
+                android:gravity="center"
+                android:paddingTop="20dp"/>
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:baselineAligned="false"
+                android:paddingTop="30dp">
+                <Spinner
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight=".4"
+                    android:id="@+id/ShopGeneralFiltersSpinner"
+                    android:background="@drawable/shop_filter_button"
+                    android:layout_margin="10dp"
+                    android:spinnerMode="dropdown"
+                    />
+                <Spinner
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight=".6"
+                    android:id="@+id/ShopItemsFiltersSpinner"
+                    android:background="@drawable/shop_filter_button"
+                    android:layout_margin="10dp"
+                    android:spinnerMode="dropdown"
+                    />
+            </LinearLayout>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/shopRecyclerView"
+                >
 
-</FrameLayout>
+            </androidx.recyclerview.widget.RecyclerView>
+
+        </LinearLayout>
+        <include layout="@layout/footer_layout"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        </include>
+    </LinearLayout>
+</ScrollView>

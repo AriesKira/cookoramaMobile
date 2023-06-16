@@ -12,7 +12,7 @@
     <string name="search">Recherche</string>
     <string name="recipe">Recette</string>
     <string name="recipes">Recettes</string>
-    <string name="titleRecipes">👨‍🍳👨🏻‍🍳👨🏽‍🍳👨🏿‍ 🍳~ Recettes ~ 👩‍🍳👩🏻‍🍳👩🏽‍🍳👩🏿‍🍳</string>
+    <string name="titleRecipes">👨‍🍳👨🏻‍🍳👨🏽‍🍳👨🏿‍🍳 ~ Recettes ~ 👩🏿‍🍳👩🏽‍🍳👩🏻‍🍳👩‍🍳</string>
     <string name="shop">Boutique</string>
     <string name="article">Article</string>
     <string name="articles">Articles</string>
@@ -23,4 +23,10 @@
     <string name="event">Evenement</string>
     <string name="events">Evenements</string>
     <string name="titleEvents">🎪🍾🥂🎪 ~ Evenements ~ 🎪🍾🥂🎪</string>
+    <string name="birthday">Date de naissance :</string>
+    <string name="profileSignUpDate">Date d\'inscription :</string>
+    <string name="profileFidelityPoints">Points de fidélité :</string>
+    <string name="upcomingEvents">🎪 ~ Prochains evènements ~ 🎪</string>
+    <string name="noEventsToday">Aucun evènement aujourd\'hui…</string>
+    <string name="no_items_found">No items found</string>
 </resources>
