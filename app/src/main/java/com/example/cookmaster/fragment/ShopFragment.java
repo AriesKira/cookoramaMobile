@@ -10,20 +10,10 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 
+import com.example.cookmaster.classes.ApiRequest;
+
 import java.util.Arrays;
 import java.util.List;
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.NameValuePair;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.client.methods.HttpUriRequest;
-import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.HttpClients;
-import org.apache.http.message.BasicNameValuePair;
-import org.apache.http.util.EntityUtils;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -32,7 +22,8 @@ import java.util.List;
 
 
 public class ShopFragment extends Fragment {
-
+    private Button testBtn;
+    private ApiRequest apiRequest;
     private Spinner generalFilters;
     private Spinner itemsFilters;
 
@@ -59,7 +50,18 @@ public class ShopFragment extends Fragment {
 
         generalFilters.setSelection(0);
         itemsFilters.setSelection(0);
+        testBtn = view.findViewById(R.id.testBtn);
+        testBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                apiRequest = new ApiRequest();
+                apiRequest.getUser("d");
+                apiRequest.getProducts();
+            }
+        });
+
 
         return view;
     }
+
 }
