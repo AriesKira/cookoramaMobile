@@ -12,7 +12,7 @@ public interface UserService {
     @GET("user/{string}")
     Call<JsonObject> getUser(@Path("string") String userInfo);
 
-    /*@GET("user/{id}")
-    Call<JsonObject> getUser(@Path("id") int id);*/
+    @GET("user/{id}")
+    Call<JsonObject> getUser(@Path("id") int id);
 }
 
