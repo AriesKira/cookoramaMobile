@@ -31,10 +31,13 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductsViewHolder>{
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ProductsViewHolder holder, int position) {
+    public void onBindViewHolder(ProductsViewHolder holder, int position) {
         ShopItem product = productsList.get(position);
+
         holder.diplayShopProduct(product);
+        holder.setImageUrl(product.getImage());
     }
+
 
     @Override
     public int getItemCount() {

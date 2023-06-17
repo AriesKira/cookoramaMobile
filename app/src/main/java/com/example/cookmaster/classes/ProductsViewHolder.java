@@ -6,6 +6,7 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.cookmaster.R;
 
 public class ProductsViewHolder extends RecyclerView.ViewHolder{
@@ -27,5 +28,9 @@ public class ProductsViewHolder extends RecyclerView.ViewHolder{
         name.setText(product.getName());
         price.setText(product.getPrice());
         image.setImageResource(R.drawable.ic_launcher_background);
+    }
+
+    public void setImageUrl(String imageUrl) {
+        Glide.with(itemView.getContext()).load(imageUrl).into(image);
     }
 }
