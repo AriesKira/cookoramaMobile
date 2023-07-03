@@ -28,5 +28,7 @@
     <string name="profileFidelityPoints">Points de fidélité :</string>
     <string name="upcomingEvents">🎪 ~ Prochains evènements ~ 🎪</string>
     <string name="noEventsToday">Aucun evènement aujourd\'hui…</string>
-    <string name="no_items_found">No items found</string>
+    <string name="no_items_found">Aucun objet trouvé</string>
+    <string name="email_empty_error">Email ne peux pas être vide</string>
+    <string name="pwd_empty_error">Mot de passe ne peut être vide</string>
 </resources>

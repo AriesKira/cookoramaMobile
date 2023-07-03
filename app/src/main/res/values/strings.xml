@@ -31,4 +31,8 @@
     <string name="most_recent">Most Recent</string>
     <string name="kitchen_equipement">Kitchen equipement</string>
     <string name="no_items_found">No items found</string>
+
+    <string name="email_empty_error">Email cannot be empty</string>
+    <string name="pwd_empty_error">Password cannot be empty</string>
+
 </resources>

@@ -63,30 +63,28 @@ public class ShopFragment extends Fragment {
 
         productsRecyclerView = view.findViewById(R.id.shopRecyclerView);
 
-        testBtn = view.findViewById(R.id.testBtn);
-        testBtn.setOnClickListener(new View.OnClickListener() {
+        apiRequest = new ApiRequest();
+        apiRequest.getProducts(new ProductsCallback() {
+
+
             @Override
-            public void onClick(View view) {
-                apiRequest = new ApiRequest();
-                apiRequest.getProducts(new ProductsCallback() {
-                    @Override
-                    public void onProductsReceived(List<ShopItem> products) {
-                        productsList.clear();
-                        productsList.addAll(products);
-                        productAdapter = new ProductAdapter(productsList);
-                        productsRecyclerView.setAdapter(productAdapter);
+            public void onProductsReceived(List<ShopItem> products) {
+                productsList.clear();
+                productsList.addAll(products);
+                productAdapter = new ProductAdapter(productsList);
+                productsRecyclerView.setAdapter(productAdapter);
 
-                        GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 2);
-                        productsRecyclerView.setLayoutManager(layoutManager);
+                GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 2);
+                productsRecyclerView.setLayoutManager(layoutManager);
 
-                    }
-
-                    @Override
-                    public void onProductsFailure(String errorMessage) {
-                        Toast.makeText(getContext(), "Erreur : " + errorMessage, Toast.LENGTH_SHORT).show();
-                    }
-                });
             }
+
+            @Override
+            public void onProductsFailure(String errorMessage) {
+                Toast.makeText(getContext(), "Erreur : " + errorMessage, Toast.LENGTH_SHORT).show();
+            }
+
+
         });
 
         return view;
