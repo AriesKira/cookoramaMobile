@@ -1,7 +1,6 @@
 package com.example.cookmaster.interfaces;
 
-public interface LoginUserCallback {
-    void onConnectionSuccess(String token,int id);
+public interface UserCallback {
+    void onConnectionSuccess(int id);
     void onConnectionFailure(String errorMessage);
-
 }

@@ -23,7 +23,7 @@ public interface UserService {
     Call<JsonObject> getUser(@Path("string") String userInfo);
 
     @GET("user/{id}")
-    Call<JsonObject> getUser(@Path("id") int id);
+    Call<JsonObject> getUser(@Path("id") int id, @Header("Authorization") String token);
 
     @Headers("Content-Type: application/json")
     @POST("user/connect")

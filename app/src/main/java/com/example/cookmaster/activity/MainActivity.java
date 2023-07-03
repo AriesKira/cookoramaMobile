@@ -41,10 +41,11 @@ public class MainActivity extends AppCompatActivity {
             Log.d("API", "File Accessed");
             apiRequest.connectUserToken("Bearer " + token, new LoginUserCallback() {
                 @Override
-                public void onConnectionSuccess(String token) {
+                public void onConnectionSuccess(String token,int id) {
                     Log.d("API Response", "Token: " + token);
                     SharedPreferences.Editor edit = settings.edit();
                     edit.putString("token", token);
+                    edit.putInt("id",id);
                     edit.apply();
                     Intent a = new Intent(MainActivity.this, HomeActivity.class);
                     startActivity(a);
@@ -76,9 +77,10 @@ public class MainActivity extends AppCompatActivity {
                 Log.d(emailInput.getText().toString(), pwdInput.getText().toString());
                 apiRequest.connectUser(emailInput.getText().toString(), pwdInput.getText().toString(), new LoginUserCallback() {
                     @Override
-                    public void onConnectionSuccess(String token) {
+                    public void onConnectionSuccess(String token,int id) {
                         SharedPreferences.Editor edit = settings.edit();
                         edit.putString("token", token);
+                        edit.putInt("id",id);
                         edit.apply();
                         Intent a = new Intent(MainActivity.this, HomeActivity.class);
                         startActivity(a);

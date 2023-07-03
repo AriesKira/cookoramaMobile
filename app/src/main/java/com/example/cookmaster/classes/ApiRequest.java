@@ -45,7 +45,7 @@ public class ApiRequest {
                 if (jsonObject != null) {
                     Log.d("API Response", "Response code: " + response.code());
                     Log.d("API Response", "Response body: " + jsonObject.toString());
-                    callback.onConnectionSuccess(jsonObject.get("token").getAsString());
+                    callback.onConnectionSuccess(jsonObject.get("token").getAsString(),jsonObject.get("id").getAsInt());
                 } else {
                     Log.d("API Error", "Response code: " + response.code());
                     JsonObject errorObject = null;
@@ -83,7 +83,7 @@ public class ApiRequest {
                 if (jsonObject != null) {
                     Log.d("API Response", "Response code: " + response.code());
                     Log.d("API Response", "Response body: " + jsonObject.toString());
-                    callback.onConnectionSuccess(jsonObject.get("token").getAsString());
+                    callback.onConnectionSuccess(jsonObject.get("token").getAsString(),jsonObject.get("id").getAsInt());
                 } else {
                     Log.d("API Error", "Response code: " + response.code());
                     JsonObject errorObject = null;
@@ -133,8 +133,8 @@ public class ApiRequest {
 
     }
 
-    public void getUser(int id) {
-        Call<JsonObject> call = userService.getUser(id);
+    public void getUser(int id, String token) {
+        Call<JsonObject> call = userService.getUser(id,token);
         call.enqueue(new Callback<JsonObject>() {
             @Override
             public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
@@ -194,4 +194,7 @@ public class ApiRequest {
     }
 
 
+    public void getUserId(String token ) {
+
+    }
 }
