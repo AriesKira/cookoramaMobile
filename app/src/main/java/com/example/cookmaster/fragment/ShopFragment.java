@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.example.cookmaster.classes.ApiRequest;
 import com.example.cookmaster.classes.ProductAdapter;
 import com.example.cookmaster.classes.ShopItem;
@@ -26,8 +27,7 @@ import java.util.ArrayList;
 
 
 public class ShopFragment extends Fragment {
-    private Button testBtn;
-
+    private LottieAnimationView loadingAnimation;
     private RecyclerView productsRecyclerView;
     private ProductAdapter productAdapter;
     private List<ShopItem> productsList = new ArrayList<>();
@@ -47,8 +47,9 @@ public class ShopFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_shop, container, false);
 
-        generalFilters = view.findViewById(R.id.ShopGeneralFiltersSpinner);
-        itemsFilters = view.findViewById(R.id.ShopItemsFiltersSpinner);
+        this.generalFilters = view.findViewById(R.id.ShopGeneralFiltersSpinner);
+        this.itemsFilters = view.findViewById(R.id.ShopItemsFiltersSpinner);
+        this.loadingAnimation = view.findViewById(R.id.animationView);
 
         generalAdapter = new ArrayAdapter<>(getContext(), R.layout.shop_filter_spinners, generalFiltersList);
         generalAdapter.setDropDownViewResource(R.layout.shop_filter_spinners);
@@ -63,12 +64,15 @@ public class ShopFragment extends Fragment {
 
         productsRecyclerView = view.findViewById(R.id.shopRecyclerView);
 
+        loadingAnimation.setVisibility(View.VISIBLE);
+
         apiRequest = new ApiRequest();
         apiRequest.getProducts(new ProductsCallback() {
 
 
             @Override
             public void onProductsReceived(List<ShopItem> products) {
+                loadingAnimation.setVisibility(View.GONE);
                 productsList.clear();
                 productsList.addAll(products);
                 productAdapter = new ProductAdapter(productsList);
@@ -81,6 +85,7 @@ public class ShopFragment extends Fragment {
 
             @Override
             public void onProductsFailure(String errorMessage) {
+                loadingAnimation.setVisibility(View.GONE);
                 Toast.makeText(getContext(), "Erreur : " + errorMessage, Toast.LENGTH_SHORT).show();
             }
 

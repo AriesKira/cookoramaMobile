@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.example.cookmaster.classes.ApiRequest;
 import com.example.cookmaster.interfaces.LoginUserCallback;
 
@@ -20,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
     private Button loginBtn, pwdResetBtn;
     private EditText emailInput, pwdInput;
 
+    LottieAnimationView loadingAnimation;
     private ApiRequest apiRequest;
 
     @Override
@@ -33,9 +35,11 @@ public class MainActivity extends AppCompatActivity {
         this.pwdResetBtn = findViewById(R.id.pwdResetBtn);
         this.emailInput = findViewById(R.id.loginEmail);
         this.pwdInput = findViewById(R.id.loginPassword);
+        this.loadingAnimation = findViewById(R.id.animationView);
 
         apiRequest = new ApiRequest();
 
+        loadingAnimation.setVisibility(View.VISIBLE);
         if (settings.contains("token")) {
             String token = settings.getString("token", "-1");
             Log.d("API", "File Accessed");
@@ -57,10 +61,11 @@ public class MainActivity extends AppCompatActivity {
                 public void onConnectionFailure(String errorMessage) {
                     Log.d("API Response", "Error: " + errorMessage);
                     Toast.makeText(MainActivity.this, errorMessage, Toast.LENGTH_SHORT).show();
+                    loadingAnimation.setVisibility(View.GONE);
                 }
             });
         }
-
+        loadingAnimation.setVisibility(View.GONE);
         this.loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -74,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
                     return;
                 }
 
-
+                loadingAnimation.setVisibility(View.VISIBLE);
                 Log.d(emailInput.getText().toString(), pwdInput.getText().toString());
                 apiRequest.connectUser(emailInput.getText().toString(), pwdInput.getText().toString(), new LoginUserCallback() {
                     @Override
@@ -90,6 +95,7 @@ public class MainActivity extends AppCompatActivity {
 
                     @Override
                     public void onConnectionFailure(String errorMessage) {
+                        loadingAnimation.setVisibility(View.GONE);
                         Log.d("API Response", "Error: " + errorMessage);
                         Toast.makeText(MainActivity.this, errorMessage, Toast.LENGTH_LONG).show();
                     }

@@ -7,14 +7,7 @@
     tools:context=".ProfileFragment"
     android:background="@color/salmon">
 
-    <com.airbnb.lottie.LottieAnimationView
-        android:layout_gravity="center"
-        android:id="@+id/animationView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:lottie_rawRes="@raw/walking_food_loader"
-        app:lottie_autoPlay="true"
-        app:lottie_loop="true"/>
+   <include layout="@layout/loading_animation" />
 
     <ScrollView
             android:layout_width="match_parent"
