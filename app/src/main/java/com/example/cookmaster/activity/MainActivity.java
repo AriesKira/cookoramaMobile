@@ -39,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
         if (settings.contains("token")) {
             String token = settings.getString("token", "-1");
             Log.d("API", "File Accessed");
+            Log.d("File", token);
             apiRequest.connectUserToken("Bearer " + token, new LoginUserCallback() {
                 @Override
                 public void onConnectionSuccess(String token,int id) {

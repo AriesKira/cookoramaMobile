@@ -8,6 +8,7 @@
         android:layout_height="150dp"
         android:scaleType="centerCrop"
         android:background="@drawable/pp_background"
+        android:src="@drawable/ic_error_24"
         />
 
 </LinearLayout>
