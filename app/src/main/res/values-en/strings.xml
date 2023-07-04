@@ -33,4 +33,6 @@
     <string name="no_items_found">No items found</string>
     <string name="email_empty_error">Email cannot be empty</string>
     <string name="pwd_empty_error">Password cannot be empty</string>
+    <string name="connexionErrorTitle">Connexion ERROR</string>
+    <string name="connexionErrorMessage">There seems to be a problem with yout connection.\nPlease Check your connection and retry.</string>
 </resources>

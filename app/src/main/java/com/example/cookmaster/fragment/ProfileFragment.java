@@ -2,6 +2,8 @@ package com.example.cookmaster;
 
 import static android.content.Context.MODE_PRIVATE;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
@@ -79,9 +81,19 @@ public class ProfileFragment extends Fragment {
 
             @Override
             public void onConnectionFailure(String errorMessage) {
-                Toast.makeText(getActivity(), errorMessage, Toast.LENGTH_SHORT).show();
                 Log.d("API CALL", "FAILURE");
                 Log.d("onConnectionFailure: ", errorMessage);
+
+                new AlertDialog.Builder(getContext())
+                        .setTitle(getResources().getString(R.string.connexionErrorTitle))
+                        .setMessage(getResources().getString(R.string.connexionErrorMessage))
+                        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+
+                            }
+                        })
+                        .show();
             }
         });
 
