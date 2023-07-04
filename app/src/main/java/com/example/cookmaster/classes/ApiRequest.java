@@ -146,6 +146,7 @@ public class ApiRequest {
             @Override
             public void onFailure(Call<JsonObject> call, Throwable t) {
                 Log.d("API Failure", t.getMessage());
+                Log.d("API Response Code", String.valueOf(call.request().url()));
                 callback.onConnectionFailure(t.getMessage());
             }
 

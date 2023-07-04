@@ -16,7 +16,7 @@ public interface UserService {
     @GET("user/{string}")
     Call<JsonObject> getUserInfos(@Path("string") String userInfo);
 
-    @GET("user/{id}")
+    @GET("user/id/{id}")
     Call<JsonObject> getUserInfos(@Path("id") int id, @Header("Authorization") String token);
 
     @Headers("Content-Type: application/json")
