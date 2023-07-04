@@ -1,6 +1,8 @@
 package com.example.cookmaster.interfaces;
 
+import com.google.gson.JsonObject;
+
 public interface UserCallback {
-    void onConnectionSuccess(int id);
+    void onConnectionSuccess(JsonObject userInfos);
     void onConnectionFailure(String errorMessage);
 }

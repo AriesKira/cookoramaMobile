@@ -3,14 +3,8 @@ package com.example.cookmaster.interfaces;
 import com.example.cookmaster.classes.LoginRequest;
 import com.google.gson.JsonObject;
 
-import java.util.Map;
-
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
-import retrofit2.http.Field;
-import retrofit2.http.FieldMap;
-import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.Headers;
@@ -20,10 +14,10 @@ import retrofit2.http.Path;
 
 public interface UserService {
     @GET("user/{string}")
-    Call<JsonObject> getUser(@Path("string") String userInfo);
+    Call<JsonObject> getUserInfos(@Path("string") String userInfo);
 
     @GET("user/{id}")
-    Call<JsonObject> getUser(@Path("id") int id, @Header("Authorization") String token);
+    Call<JsonObject> getUserInfos(@Path("id") int id, @Header("Authorization") String token);
 
     @Headers("Content-Type: application/json")
     @POST("user/connect")

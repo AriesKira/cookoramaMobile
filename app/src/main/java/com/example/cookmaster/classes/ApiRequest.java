@@ -5,6 +5,7 @@ import android.util.Log;
 import com.example.cookmaster.interfaces.ProductService;
 import com.example.cookmaster.interfaces.ProductsCallback;
 import com.example.cookmaster.interfaces.LoginUserCallback;
+import com.example.cookmaster.interfaces.UserCallback;
 import com.example.cookmaster.interfaces.UserService;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
@@ -107,8 +108,54 @@ public class ApiRequest {
         });
     }
 
+    /*
+    *
+    * User infos request
+    *
+    * @params int id , string token
+    *
+    * @return JsonObject
+    */
+    public void getUserInfos(int id, String token , UserCallback callback) {
+        Call<JsonObject> call = userService.getUserInfos(id,token);
+
+        call.enqueue(new Callback<JsonObject>() {
+            @Override
+            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+                JsonObject jsonObject = response.body();
+                if (jsonObject != null) {
+                    Log.d("API Response", "Response code: " + response.code());
+                    Log.d("API Response", "Response body: " + jsonObject.toString());
+                    callback.onConnectionSuccess(jsonObject);
+                } else {
+                    Log.d("API Error", "Response code: " + response.code());
+                    JsonObject errorObject = null;
+                    String errorMessage = null;
+                    try {
+                        String errorBodyString = response.errorBody().string();
+                        Log.d("API Error", "Response body: " + errorBodyString);
+                        errorObject = new Gson().fromJson(errorBodyString, JsonObject.class);
+                        errorMessage = errorObject.get("message").getAsString();
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                    callback.onConnectionFailure(errorMessage);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<JsonObject> call, Throwable t) {
+                Log.d("API Failure", t.getMessage());
+                callback.onConnectionFailure(t.getMessage());
+            }
+
+        });
+
+    }
+
+
     public void getUser(String userInfo) {
-        Call<JsonObject> call = userService.getUser(userInfo);
+        Call<JsonObject> call = userService.getUserInfos(userInfo);
         call.enqueue(new Callback<JsonObject>() {
 
             @Override
@@ -133,30 +180,6 @@ public class ApiRequest {
 
     }
 
-    public void getUser(int id, String token) {
-        Call<JsonObject> call = userService.getUser(id,token);
-        call.enqueue(new Callback<JsonObject>() {
-            @Override
-            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
-                if (response.isSuccessful()) {
-                    JsonObject jsonObject = response.body();
-                    if (jsonObject != null) {
-                        Log.d("API Response", "Response code: " + response.code());
-                        Log.d("API Response", "Response body: " + jsonObject.toString());
-                    }
-                } else {
-                    Log.d("API Error", "Response code: " + response.code());
-                }
-            }
-
-            @Override
-            public void onFailure(Call<JsonObject> call, Throwable t) {
-                Log.d("API Failure", t.getMessage());
-            }
-
-        });
-
-    }
     public void getProducts(ProductsCallback callback) {
         Call<JsonObject> call = productService.getProducts();
         call.enqueue(new Callback<JsonObject>() {
@@ -194,7 +217,4 @@ public class ApiRequest {
     }
 
 
-    public void getUserId(String token ) {
-
-    }
 }

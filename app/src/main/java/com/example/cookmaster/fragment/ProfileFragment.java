@@ -1,64 +1,73 @@
 package com.example.cookmaster;
 
+import static android.content.Context.MODE_PRIVATE;
+
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+import android.widget.Toast;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link ProfileFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import com.example.cookmaster.classes.ApiRequest;
+import com.example.cookmaster.interfaces.UserCallback;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+
 public class ProfileFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    TextView profileFirstname, profileLastname,profileBday,profileEmail,profileSignUpDate,profileFidelityPoints;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    ApiRequest apiRequest = new ApiRequest();
 
-    public ProfileFragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment ProfileFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static ProfileFragment newInstance(String param1, String param2) {
-        ProfileFragment fragment = new ProfileFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
+    SharedPreferences settings;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_profile, container, false);
+        View view = inflater.inflate(R.layout.fragment_profile, container, false);
+
+        settings = getActivity().getSharedPreferences("PREFS", MODE_PRIVATE);
+
+        profileFirstname = view.findViewById(R.id.profileFirstname);
+        profileLastname = view.findViewById(R.id.profileLastname);
+        profileBday = view.findViewById(R.id.profileBirthday);
+        profileEmail = view.findViewById(R.id.profileEmail);
+        profileSignUpDate = view.findViewById(R.id.profileSignUpDate);
+        profileFidelityPoints = view.findViewById(R.id.profileFidelityPoints);
+
+        apiRequest.getUserInfos(settings.getInt("id", -1), "Bearer " + settings.getString("token", "-1"), new UserCallback() {
+            @Override
+            public void onConnectionSuccess(JsonObject userInfos) {
+                Log.d("API Response", "User Infos: " + userInfos.toString());
+                Log.d("API CALL", "SUCCESS");
+
+                JsonArray infos = userInfos.get("user").getAsJsonArray();
+                JsonObject userObject = infos.get(0).getAsJsonObject();
+
+                profileFirstname.setText(userObject.get("firstname").getAsString());
+                profileLastname.setText(userObject.get("lastname").getAsString());
+                profileBday.setText(userObject.get("birthdate").getAsString());
+                profileEmail.setText(userObject.get("email").getAsString());
+                profileSignUpDate.setText(userObject.get("creation").getAsString());
+                profileFidelityPoints.setText(userObject.get("fidelityCounter").getAsString());
+
+
+            }
+
+            @Override
+            public void onConnectionFailure(String errorMessage) {
+                Toast.makeText(getActivity(), errorMessage, Toast.LENGTH_SHORT).show();
+                Log.d("API CALL", "FAILURE");
+            }
+        });
+
+        return view;
     }
 }
