@@ -90,7 +90,7 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onConnectionFailure(String errorMessage) {
                         Log.d("API Response", "Error: " + errorMessage);
-                        Toast.makeText(MainActivity.this, errorMessage, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MainActivity.this, errorMessage, Toast.LENGTH_LONG).show();
                     }
 
 
