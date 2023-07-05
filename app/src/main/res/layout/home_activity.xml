@@ -13,7 +13,7 @@
         android:layout_margin="30dp"
         android:elevation="2dp"
         app:menu="@menu/item_menu"
-        app:itemRippleColor="@android:color/transparent"
+        app:itemRippleColor="@android:color/black"
         app:itemIconSize="30dp"
         app:labelVisibilityMode="selected"
         android:id="@+id/bottom_navbar">

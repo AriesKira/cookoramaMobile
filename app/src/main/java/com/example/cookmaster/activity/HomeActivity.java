@@ -8,12 +8,15 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class HomeActivity extends AppCompatActivity {
     private EditText emailInput, pwdInput;
     private BottomNavigationView bottomNav;
+
+    private Fragment currentFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +53,19 @@ public class HomeActivity extends AppCompatActivity {
                     display = new RecipeFragment();
                     break;
             }
-            fragmentManager.beginTransaction().replace(R.id.home_activity_container, display).commit();
+
+            if (display != null) {
+                currentFragment = display;
+                FragmentTransaction transaction = fragmentManager.beginTransaction();
+                transaction.replace(R.id.home_activity_container, display);
+
+                if (currentFragment instanceof ProfileFragment) {
+                    transaction.addToBackStack(null);
+                }
+
+                transaction.commit();
+            }
+
             return true;
         });
     }

@@ -10,19 +10,19 @@
     <string name="trademark">© 2023 - Cookorama</string>
     <string name="home">Home</string>
     <string name="search">Search</string>
-    <string name="recipe" >Recipe</string>
+    <string name="recipe">Recipe</string>
     <string name="recipes">Recipes</string>
-    <string name="titleRecipes">👨‍🍳👨🏻‍🍳👨🏽‍🍳👨🏿‍🍳 ~ Recipes ~ 👩🏿‍🍳👩🏽‍🍳👩🏻‍🍳👩‍🍳</string>
+    <string name="titleRecipes">👨‍🍳~ Recipes ~👩‍🍳</string>
     <string name="shop">Shop</string>
     <string name="article">Article</string>
     <string name="articles">Articles</string>
-    <string name="titleArticles">📕📗📘📙 ~ Articles ~ 📙📘📗📕</string>
+    <string name="titleArticles">🛒~ Articles ~ 🛒</string>
     <string name="profile">Profile</string>
     <string name="courses">Courses</string>
-    <string name="titleCourses">📕📗📘📙 ~ Courses ~ 📙📘📗📕</string>
+    <string name="titleCourses">📙~ Courses ~ 📙</string>
     <string name="event">Event</string>
     <string name="events">Events</string>
-    <string name="titleEvents">🎪🍾🥂🎪 ~ Events ~ 🎪🍾🥂🎪</string>
+    <string name="titleEvents">🎪 ~ Events ~ 🎪</string>
     <string name="birthday">Birthday :</string>
     <string name="profileSignUpDate">Sign-Up date :</string>
     <string name="profileFidelityPoints">Fidelity Points :</string>
@@ -31,8 +31,10 @@
     <string name="most_recent">Most Recent</string>
     <string name="kitchen_equipement">Kitchen equipement</string>
     <string name="no_items_found">No items found</string>
+
     <string name="email_empty_error">Email cannot be empty</string>
     <string name="pwd_empty_error">Password cannot be empty</string>
     <string name="connexionErrorTitle">Connexion ERROR</string>
     <string name="connexionErrorMessage">There seems to be a problem with yout connection.\nPlease Check your connection and retry.</string>
+
 </resources>

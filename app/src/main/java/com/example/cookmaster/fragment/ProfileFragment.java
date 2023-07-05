@@ -36,6 +36,8 @@ public class ProfileFragment extends Fragment {
 
     SharedPreferences settings;
 
+    private String firstname, lastname, bday, email, signUpDate, fidelityPoints, profilePictureUrl;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -98,5 +100,32 @@ public class ProfileFragment extends Fragment {
         });
 
         return view;
+
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        Log.d("onPause: ", "onPause");
+        this.firstname = profileFirstname.getText().toString();
+        this.lastname = profileLastname.getText().toString();
+        this.bday = profileBday.getText().toString();
+        this.email = profileEmail.getText().toString();
+        this.signUpDate = profileSignUpDate.getText().toString();
+        this.fidelityPoints = profileFidelityPoints.getText().toString();
+        this.profilePictureUrl = profilePicture.toString();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log.d("onResume: ", "onResume");
+        profileFirstname.setText(this.firstname);
+        profileLastname.setText(this.lastname);
+        profileBday.setText(this.bday);
+        profileEmail.setText(this.email);
+        profileSignUpDate.setText(this.signUpDate);
+        profileFidelityPoints.setText(this.fidelityPoints);
+        ImageHandler.setPrifilePicture(profilePicture, IMAGE_URL + this.profilePictureUrl);
     }
 }
