@@ -28,13 +28,13 @@
     <string name="profileFidelityPoints">Fidelity Points :</string>
     <string name="upcomingEvents">🎪 ~ Upcoming events ~ 🎪</string>
     <string name="noEventsToday">No events today…</string>
-    <string name="most_recent">Most Recent</string>
-    <string name="kitchen_equipement">Kitchen equipement</string>
     <string name="no_items_found">No items found</string>
 
     <string name="email_empty_error">Email cannot be empty</string>
     <string name="pwd_empty_error">Password cannot be empty</string>
     <string name="connexionErrorTitle">Connexion ERROR</string>
     <string name="connexionErrorMessage">There seems to be a problem with yout connection.\nPlease Check your connection and retry.</string>
+
+    <string name="returnToShop">Return to shop</string>
 
 </resources>

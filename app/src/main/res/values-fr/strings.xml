@@ -31,5 +31,7 @@
     <string name="no_items_found">Aucun objet trouvé</string>
     <string name="email_empty_error">Email ne peux pas être vide</string>
     <string name="pwd_empty_error">Mot de passe ne peut être vide</string>
+    <string name="connexionErrorTitle">Erreur de communication</string>
     <string name="connexionErrorMessage">Il semble qu\'une erreur sois survenue.\nVeuillez vérifier votre connexion internet puis réessayer.</string>
+    <string name="returnToShop">Retour à la boutique</string>
 </resources>
