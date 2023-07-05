@@ -31,7 +31,11 @@ public class ProductsViewHolder extends RecyclerView.ViewHolder{
 
     public void diplayShopProduct(ShopItem product) {
         this.product = product;
-        name.setText(product.getName());
+        if (product.getName().length() > 15) {
+            name.setText(product.getName().substring(0, 12) + "...");
+        }else {
+            name.setText(product.getName());
+        }
         price.setText(product.getPrice());
         image.setImageResource(R.drawable.ic_launcher_background);
         productLayout.setOnClickListener(new View.OnClickListener() {
