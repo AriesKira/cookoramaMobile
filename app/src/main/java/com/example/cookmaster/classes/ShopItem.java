@@ -2,7 +2,9 @@ package com.example.cookmaster.classes;
 
 import android.util.Log;
 
-public class ShopItem {
+import java.io.Serializable;
+
+public class ShopItem implements Serializable {
     private String name;
     private String description;
     private String price;
@@ -44,5 +46,17 @@ public class ShopItem {
 
     public String getImage() {
         return image;
+    }
+
+    @Override
+    public String toString() {
+        return "ShopItem{" +
+                "name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", price='" + price + '\'' +
+                ", quantity='" + quantity + '\'' +
+                ", id=" + id +
+                ", image='" + image + '\'' +
+                '}';
     }
 }
