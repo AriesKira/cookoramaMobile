@@ -36,5 +36,6 @@
     <string name="connexionErrorMessage">There seems to be a problem with yout connection.\nPlease Check your connection and retry.</string>
 
     <string name="returnToShop">Return to shop</string>
+    <string name="no_browser_error">No browser found.\nPlease verify that your device has a usable browser or download one.\nOtherwise use another device and go to this adress :</string>
 
 </resources>

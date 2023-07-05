@@ -34,4 +34,5 @@
     <string name="connexionErrorTitle">Erreur de communication</string>
     <string name="connexionErrorMessage">Il semble qu\'une erreur sois survenue.\nVeuillez vérifier votre connexion internet puis réessayer.</string>
     <string name="returnToShop">Retour à la boutique</string>
+    <string name="no_browser_error">Aucun navigateur trouvé.\nVeuillez vérifier que votre appareil dispose d\'un navigateur internet ou installez en un.\nSinon rendez vous à l\'adresse suivante avec un autre appareil : </string>
 </resources>
