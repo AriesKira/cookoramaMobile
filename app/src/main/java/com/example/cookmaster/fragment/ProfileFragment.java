@@ -4,6 +4,7 @@ import static android.content.Context.MODE_PRIVATE;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
@@ -13,6 +14,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -28,6 +30,7 @@ public class ProfileFragment extends Fragment {
 
     TextView profileFirstname, profileLastname,profileBday,profileEmail,profileSignUpDate,profileFidelityPoints;
     ImageView profilePicture;
+    ImageButton editProfileButton,disconnectButton;
     LottieAnimationView loadingAnimation;
 
     static final String IMAGE_URL = "https://cookorama.fr/ressources/images/profilePicture/";
@@ -54,6 +57,36 @@ public class ProfileFragment extends Fragment {
         profileFidelityPoints = view.findViewById(R.id.profileFidelityPoints);
         profilePicture = view.findViewById(R.id.UserPPHolder);
         loadingAnimation = view.findViewById(R.id.animationView);
+
+        editProfileButton = view.findViewById(R.id.editProfileButton);
+        disconnectButton = view.findViewById(R.id.disconnectButton);
+
+        disconnectButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                new AlertDialog.Builder(getContext())
+                        .setTitle(getResources().getString(R.string.disconnectTitle))
+                        .setMessage(getResources().getString(R.string.disconnectMessage))
+                        .setPositiveButton(getResources().getString(R.string.disconnect), new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                SharedPreferences.Editor edit = settings.edit();
+                                edit.putInt("id", -1);
+                                edit.putString("token", "-1");
+                                edit.apply();
+
+                                Log.d("diconnect", "clicked");
+
+                                Intent intent = new Intent(getActivity(), MainActivity.class);
+                                startActivity(intent);
+
+                                getActivity().finish();
+                            }
+                        })
+                        .setNegativeButton(getResources().getString(R.string.cancelButton), null)
+                        .show();
+            }
+        });
 
         loadingAnimation.setVisibility(View.VISIBLE);
 
@@ -98,6 +131,8 @@ public class ProfileFragment extends Fragment {
                         .show();
             }
         });
+
+
 
         return view;
 

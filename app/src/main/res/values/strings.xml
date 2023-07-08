@@ -37,5 +37,10 @@
 
     <string name="returnToShop">Return to shop</string>
     <string name="no_browser_error">No browser found.\nPlease verify that your device has a usable browser or download one.\nOtherwise use another device and go to this adress :</string>
+    <string name="DisconnectArrow"><![CDATA[->]]></string>
+    <string name="disconnectTitle">Disconnection</string>
+    <string name="disconnectMessage">Are you sure you want to disconnect ?</string>
+    <string name="disconnect">Disconnect</string>
+    <string name="cancelButton">Cancel</string>
 
 </resources>

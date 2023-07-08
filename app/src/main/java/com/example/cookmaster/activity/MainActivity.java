@@ -43,10 +43,9 @@ public class MainActivity extends AppCompatActivity {
         apiRequest = new ApiRequest();
 
         loadingAnimation.setVisibility(View.VISIBLE);
-        if (settings.contains("token")) {
+        if (settings.contains("token") && !settings.getString("token", "-2").equals("-1")) {
             String token = settings.getString("token", "-1");
-            Log.d("API", "File Accessed");
-            Log.d("File", token);
+
             apiRequest.connectUserToken("Bearer " + token, new LoginUserCallback() {
                 @Override
                 public void onConnectionSuccess(String token,int id) {

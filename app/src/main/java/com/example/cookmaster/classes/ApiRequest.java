@@ -217,5 +217,40 @@ public class ApiRequest {
         });
     }
 
+    public void searchProducts(String search, ProductsCallback callback) {
+        Call<JsonObject> call = productService.searchProducts(search);
+        call.enqueue(new Callback<JsonObject>() {
+            @Override
+            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+                JsonObject jsonObject = response.body();
+                if (jsonObject != null) {
+                    Log.d("API Response", "Response code: " + response.code());
+                    Log.d("API Response", "Response body: " + jsonObject.toString());
+
+                    List<ShopItem> shopItems = new ArrayList<>();
+                    JsonArray products = jsonObject.getAsJsonArray("products");
+                    for (JsonElement product : products) {
+                        JsonObject productObject = product.getAsJsonObject();
+                        String name = productObject.get("name").getAsString();
+                        String description = productObject.get("description").getAsString();
+                        String price = productObject.get("price").getAsString();
+                        String quantity = productObject.get("quantity").getAsString();
+                        int id = productObject.get("id").getAsInt();
+                        String image = productObject.get("image").getAsString();
+                        ShopItem shopItem = new ShopItem(name, description, price, quantity, id, image);
+                        shopItems.add(shopItem);
+                    }
+                    callback.onProductsReceived(shopItems);
+                } else {
+                    callback.onProductsFailure("Response body is null");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<JsonObject> call, Throwable t) {
+                callback.onProductsFailure(t.getMessage());
+            }
+        });
+    }
 
 }

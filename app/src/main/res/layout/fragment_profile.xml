@@ -1,175 +1,194 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ProfileFragment"
+    android:orientation="vertical"
     android:background="@color/salmon">
 
-   <include layout="@layout/loading_animation" />
+   <include layout="@layout/loading_animation"
+       android:visibility="gone"/>
 
-    <ScrollView
+    <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/scrollProfile"
             app:layout_constraintTop_toTopOf="parent">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="end"
+                android:paddingEnd="16dp"
+                android:paddingTop="16dp"
+                tools:ignore="RtlSymmetry">
 
-        <LinearLayout
+
+                <ImageButton
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:background="@drawable/profile_buttons_shape"
+                    android:layout_marginBottom="8dp"
+                    android:id="@+id/disconnectButton"
+                    android:src="@drawable/logout_icon"
+                    />
+
+                    <ImageButton
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:background="@drawable/profile_buttons_shape"
+                        android:layout_marginBottom="8dp"
+                        android:id="@+id/editProfileButton"
+                        android:src="@drawable/edit_profile_icon"
+                        />
+                </LinearLayout>
+                <LinearLayout
+                    android:paddingTop="25dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:id="@+id/profileInformations">
+
+                    <include layout="@layout/profile_picture_layout" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:paddingTop="20dp">
+
+                        <TextView
+                            android:gravity="center"
+                            android:id="@+id/profileFirstname"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="username"
+                            android:fontFamily="@font/roboto_bold"
+                            android:textColor="@color/black"
+                            android:textSize="20sp"
+                            android:layout_weight="0.5"/>
+                        <TextView
+                            android:gravity="center"
+                            android:id="@+id/profileLastname"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="lastname"
+                            android:textAllCaps="true"
+                            android:fontFamily="@font/roboto_bold"
+                            android:textColor="@color/black"
+                            android:textSize="20sp"
+                            android:layout_weight="0.5"/>
+
+                    </LinearLayout>
+
+                    <TextView
+                        android:paddingTop="40dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/profileEmail"
+                        android:text="email"
+                        android:fontFamily="@font/roboto_italic"
+                        android:textColor="@color/black"
+                        android:textSize="20sp"
+                        />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="30dp"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:gravity="center"
+                            android:layout_weight=".5"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:text="@string/birthday"
+                            android:fontFamily="@font/roboto_medium"
+                            android:textColor="@color/black"
+                            android:textSize="20sp"
+                            />
+                        <TextView
+                            android:layout_weight=".5"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/profileBirthday"
+                            android:text="birthday"
+                            android:fontFamily="@font/roboto_italic"
+                            android:textColor="@color/black"
+                            android:textSize="20sp"
+                            />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:paddingTop="30dp">
+                        <TextView
+                            android:gravity="center"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:text="@string/profileSignUpDate"
+                            android:fontFamily="@font/roboto_medium"
+                            android:textColor="@color/black"
+                            android:textSize="20sp"
+                            android:layout_weight=".5"/>
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/profileSignUpDate"
+                            android:text="sign up date"
+                            android:fontFamily="@font/roboto_italic"
+                            android:textColor="@color/black"
+                            android:textSize="20sp"
+                            android:layout_weight=".5"/>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:paddingTop="30dp">
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight=".5"
+                            android:gravity="center"
+                            android:text="@string/profileFidelityPoints"
+                            android:fontFamily="@font/roboto_medium"
+                            android:textColor="@color/black"
+                            android:textSize="20sp"
+                            />
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/profileFidelityPoints"
+                            android:text="fidelity points"
+                            android:fontFamily="@font/roboto_italic"
+                            android:textColor="@color/black"
+                            android:textSize="20sp"
+                            android:layout_weight=".5"/>
+                    </LinearLayout>
+                </LinearLayout>
+    </FrameLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingTop="40dp">
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
-            <LinearLayout
-                android:paddingTop="25dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:gravity="center"
-                android:id="@+id/profileInformations">
-                <include layout="@layout/profile_picture_layout" />
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:paddingTop="20dp">
+            android:gravity="center"
+            android:text="@string/upcomingEvents"
+            android:textSize="30sp"
+            android:fontFamily="@font/roboto_bold"
+            android:textColor="@color/black"
+            />
 
-                    <TextView
-                        android:gravity="center"
-                        android:id="@+id/profileFirstname"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="username"
-                        android:fontFamily="@font/roboto_bold"
-                        android:textColor="@color/black"
-                        android:textSize="20sp"
-                        android:layout_weight="0.5"/>
-                    <TextView
-                        android:gravity="center"
-                        android:id="@+id/profileLastname"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="lastname"
-                        android:textAllCaps="true"
-                        android:fontFamily="@font/roboto_bold"
-                        android:textColor="@color/black"
-                        android:textSize="20sp"
-                        android:layout_weight="0.5"/>
-
-                </LinearLayout>
-
-                <TextView
-                    android:paddingTop="40dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/profileEmail"
-                    android:text="email"
-                    android:fontFamily="@font/roboto_italic"
-                    android:textColor="@color/black"
-                    android:textSize="20sp"
-                    />
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingTop="30dp"
-                    android:orientation="horizontal">
-                    <TextView
-                        android:gravity="center"
-                        android:layout_weight=".5"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:text="@string/birthday"
-                        android:fontFamily="@font/roboto_medium"
-                        android:textColor="@color/black"
-                        android:textSize="20sp"
-                        />
-                    <TextView
-                        android:layout_weight=".5"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/profileBirthday"
-                        android:text="birthday"
-                        android:fontFamily="@font/roboto_italic"
-                        android:textColor="@color/black"
-                        android:textSize="20sp"
-                        />
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:paddingTop="30dp">
-                    <TextView
-                        android:gravity="center"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:text="@string/profileSignUpDate"
-                        android:fontFamily="@font/roboto_medium"
-                        android:textColor="@color/black"
-                        android:textSize="20sp"
-                        android:layout_weight=".5"/>
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/profileSignUpDate"
-                        android:text="sign up date"
-                        android:fontFamily="@font/roboto_italic"
-                        android:textColor="@color/black"
-                        android:textSize="20sp"
-                        android:layout_weight=".5"/>
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:paddingTop="30dp">
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight=".5"
-                        android:gravity="center"
-                        android:text="@string/profileFidelityPoints"
-                        android:fontFamily="@font/roboto_medium"
-                        android:textColor="@color/black"
-                        android:textSize="20sp"
-                        />
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/profileFidelityPoints"
-                        android:text="fidelity points"
-                        android:fontFamily="@font/roboto_italic"
-                        android:textColor="@color/black"
-                        android:textSize="20sp"
-                        android:layout_weight=".5"/>
-                </LinearLayout>
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:paddingTop="40dp">
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="@string/upcomingEvents"
-                    android:textSize="30sp"
-                    android:fontFamily="@font/roboto_bold"
-                    android:textColor="@color/black"
-                    />
-
-                <include layout="@layout/fragment_calendar"
-                    android:layout_marginTop="20dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
-            </LinearLayout>
-            <include layout="@layout/footer_layout"
-                app:layout_constraintBottom_toBottomOf="parent"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="50dp">
-            </include>
-        </LinearLayout>
-    </ScrollView>
-
-</FrameLayout>
+        <include layout="@layout/fragment_calendar"
+            android:layout_marginTop="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+</LinearLayout>

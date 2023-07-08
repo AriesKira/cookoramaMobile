@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
-        <include layout="@layout/loading_animation" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -36,21 +36,25 @@
                 <Spinner
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight=".4"
+                    android:layout_weight=".3"
                     android:id="@+id/ShopGeneralFiltersSpinner"
                     android:background="@drawable/shop_filter_button"
                     android:layout_margin="10dp"
                     android:spinnerMode="dropdown"
                     />
-                <Spinner
+                <EditText
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight=".6"
-                    android:id="@+id/ShopItemsFiltersSpinner"
-                    android:background="@drawable/shop_filter_button"
                     android:layout_margin="10dp"
-                    android:spinnerMode="dropdown"
+                    android:layout_height="wrap_content"
+                    android:layout_weight=".4"
+                    android:background="@drawable/edit_text_rounded"
+                    android:hint="@string/search"
+                    android:inputType="text"
+                    android:gravity="center"
+                    android:textColor="@color/black"
+                    android:id="@+id/shopSearchBar"
                     />
+
             </LinearLayout>
         </LinearLayout>
         <LinearLayout
@@ -58,6 +62,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:layout_marginBottom="20dp">
+            <include layout="@layout/loading_animation" />
             <androidx.recyclerview.widget.RecyclerView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -66,7 +71,17 @@
                 >
 
             </androidx.recyclerview.widget.RecyclerView>
-
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/no_items_found"
+                android:textSize="24sp"
+                android:textColor="@color/black"
+                android:fontFamily="@font/roboto_condensed"
+                android:gravity="center"
+                android:id="@+id/noItemsFound"
+                android:visibility="gone"
+                />
         </LinearLayout>
     </LinearLayout>
     <include layout="@layout/footer_layout"

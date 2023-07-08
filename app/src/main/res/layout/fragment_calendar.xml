@@ -16,5 +16,6 @@
             android:textColor="@color/lightGray"
             android:fontFamily="@font/roboto_light"
             android:layout_gravity="center"
+            android:id="@+id/noEventsToday"
             />
 </LinearLayout>

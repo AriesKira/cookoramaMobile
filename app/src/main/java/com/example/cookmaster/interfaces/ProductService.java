@@ -10,4 +10,6 @@ public interface ProductService {
     @GET("products")
     Call<JsonObject> getProducts();
 
+    @GET("products/{search}")
+    Call<JsonObject> searchProducts(@Path("search") String search);
 }
