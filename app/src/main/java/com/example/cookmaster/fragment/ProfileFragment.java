@@ -21,6 +21,7 @@ import android.widget.Toast;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.example.cookmaster.Utils.ImageHandler;
+import com.example.cookmaster.activity.EditProfileActivity;
 import com.example.cookmaster.classes.ApiRequest;
 import com.example.cookmaster.interfaces.UserCallback;
 import com.google.gson.JsonArray;
@@ -39,7 +40,6 @@ public class ProfileFragment extends Fragment {
 
     SharedPreferences settings;
 
-    private String firstname, lastname, bday, email, signUpDate, fidelityPoints, profilePictureUrl;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -73,6 +73,14 @@ public class ProfileFragment extends Fragment {
                                 SharedPreferences.Editor edit = settings.edit();
                                 edit.putInt("id", -1);
                                 edit.putString("token", "-1");
+                                edit.putString("firstname", "-1");
+                                edit.putString("lastname", "-1");
+                                edit.putString("email", "-1");
+                                edit.putString("birthdate", "-1");
+                                edit.putString("creation", "-1");
+                                edit.putString("fidelityCounter", "-1");
+                                edit.putString("profilePicture", "-1");
+
                                 edit.apply();
 
                                 Log.d("diconnect", "clicked");
@@ -88,79 +96,83 @@ public class ProfileFragment extends Fragment {
             }
         });
 
-        loadingAnimation.setVisibility(View.VISIBLE);
-
-        apiRequest.getUserInfos(settings.getInt("id", -1), "Bearer " + settings.getString("token", "-1"), new UserCallback() {
+        editProfileButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onConnectionSuccess(JsonObject userInfos) {
-                loadingAnimation.setVisibility(View.GONE);
-                Log.d("API Response", "User Infos: " + userInfos.toString());
-                Log.d("API CALL", "SUCCESS");
-
-                SharedPreferences.Editor edit = settings.edit();
-
-                JsonObject userObject = userInfos.get("user").getAsJsonObject();
-
-                edit.putString("token", userObject.get("token").getAsString());
-                edit.apply();
-
-                profileFirstname.setText(userObject.get("firstname").getAsString());
-                profileLastname.setText(userObject.get("lastname").getAsString());
-                profileBday.setText(userObject.get("birthdate").getAsString());
-                profileEmail.setText(userObject.get("email").getAsString());
-                profileSignUpDate.setText(userObject.get("creation").getAsString());
-                profileFidelityPoints.setText(userObject.get("fidelityCounter").getAsString());
-                ImageHandler.setPrifilePicture(profilePicture,IMAGE_URL + userObject.get("profilePicture").getAsString());
-
-            }
-
-            @Override
-            public void onConnectionFailure(String errorMessage) {
-                Log.d("API CALL", "FAILURE");
-                Log.d("onConnectionFailure: ", errorMessage);
-
-                new AlertDialog.Builder(getContext())
-                        .setTitle(getResources().getString(R.string.connexionErrorTitle))
-                        .setMessage(getResources().getString(R.string.connexionErrorMessage))
-                        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-
-                            }
-                        })
-                        .show();
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), EditProfileActivity.class);
+                startActivity(intent);
             }
         });
 
+        loadingAnimation.setVisibility(View.VISIBLE);
 
+            apiRequest.getUserInfos(settings.getInt("id", -1), "Bearer " + settings.getString("token", "-1"), new UserCallback() {
+                @Override
+                public void onConnectionSuccess(JsonObject userInfos) {
+                    loadingAnimation.setVisibility(View.GONE);
+                    Log.d("API Response", "User Infos: " + userInfos.toString());
+                    Log.d("API CALL", "SUCCESS");
+
+                    SharedPreferences.Editor edit = settings.edit();
+
+                    JsonObject userObject = userInfos.get("user").getAsJsonObject();
+
+                    edit.putString("token", userObject.get("token").getAsString());
+
+                    profileFirstname.setText(userObject.get("firstname").getAsString());
+                    profileLastname.setText(userObject.get("lastname").getAsString());
+                    profileBday.setText(userObject.get("birthdate").getAsString());
+                    profileEmail.setText(userObject.get("email").getAsString());
+                    profileSignUpDate.setText(userObject.get("creation").getAsString());
+                    profileFidelityPoints.setText(userObject.get("fidelityCounter").getAsString());
+                    ImageHandler.setPrifilePicture(profilePicture, IMAGE_URL + userObject.get("profilePicture").getAsString());
+
+                    SharedPreferences settings = getActivity().getSharedPreferences("PREFS", MODE_PRIVATE);
+
+                    edit.putString("firstname", userObject.get("firstname").getAsString());
+                    edit.putString("lastname", userObject.get("lastname").getAsString());
+                    edit.putString("email", userObject.get("email").getAsString());
+                    edit.putString("birthdate", userObject.get("birthdate").getAsString());
+                    edit.putString("creation", userObject.get("creation").getAsString());
+                    edit.putString("fidelityCounter", userObject.get("fidelityCounter").getAsString());
+                    edit.putString("profilePicture", userObject.get("profilePicture").getAsString());
+                    edit.apply();
+
+
+                }
+
+                @Override
+                public void onConnectionFailure(String errorMessage) {
+                    Log.d("API CALL", "FAILURE");
+                    Log.d("onConnectionFailure: ", errorMessage);
+
+                    new AlertDialog.Builder(getContext())
+                            .setTitle(getResources().getString(R.string.connexionErrorTitle))
+                            .setMessage(getResources().getString(R.string.connexionErrorMessage))
+                            .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+
+                                }
+                            })
+                            .show();
+                }
+            });
 
         return view;
 
     }
 
     @Override
-    public void onPause() {
-        super.onPause();
-        Log.d("onPause: ", "onPause");
-        this.firstname = profileFirstname.getText().toString();
-        this.lastname = profileLastname.getText().toString();
-        this.bday = profileBday.getText().toString();
-        this.email = profileEmail.getText().toString();
-        this.signUpDate = profileSignUpDate.getText().toString();
-        this.fidelityPoints = profileFidelityPoints.getText().toString();
-        this.profilePictureUrl = profilePicture.toString();
-    }
-
-    @Override
     public void onResume() {
         super.onResume();
         Log.d("onResume: ", "onResume");
-        profileFirstname.setText(this.firstname);
-        profileLastname.setText(this.lastname);
-        profileBday.setText(this.bday);
-        profileEmail.setText(this.email);
-        profileSignUpDate.setText(this.signUpDate);
-        profileFidelityPoints.setText(this.fidelityPoints);
-        ImageHandler.setPrifilePicture(profilePicture, IMAGE_URL + this.profilePictureUrl);
+        profileFirstname.setText(settings.getString("firstname", "-1"));
+        profileLastname.setText(settings.getString("lastname", "-1"));
+        profileBday.setText(settings.getString("birthdate", "-1"));
+        profileEmail.setText(settings.getString("email", "-1"));
+        profileSignUpDate.setText(settings.getString("creation", "-1"));
+        profileFidelityPoints.setText(settings.getString("fidelityCounter", "-1"));
+        ImageHandler.setPrifilePicture(profilePicture, IMAGE_URL + settings.getString("profilePicture", "-1"));
     }
 }

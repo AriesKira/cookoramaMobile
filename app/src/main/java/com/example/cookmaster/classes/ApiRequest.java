@@ -1,10 +1,13 @@
 package com.example.cookmaster.classes;
 
+import android.content.SharedPreferences;
 import android.util.Log;
 
+import com.example.cookmaster.interfaces.OnValidatePasswordCallback;
 import com.example.cookmaster.interfaces.ProductService;
 import com.example.cookmaster.interfaces.ProductsCallback;
 import com.example.cookmaster.interfaces.LoginUserCallback;
+import com.example.cookmaster.interfaces.UpdateUserCallback;
 import com.example.cookmaster.interfaces.UserCallback;
 import com.example.cookmaster.interfaces.UserService;
 import com.google.gson.Gson;
@@ -253,4 +256,97 @@ public class ApiRequest {
         });
     }
 
+    public void checkPassword(String token , String pwd, OnValidatePasswordCallback callback) {
+        Call<JsonObject> call = userService.checkPassword(token ,new CheckPwd(pwd));
+
+        call.enqueue(new Callback<JsonObject>() {
+            @Override
+            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+                JsonObject jsonObject = response.body();
+
+                if (jsonObject != null) {
+                    Log.d("1st", "I am here ");
+                    Log.d("API Response", "Response code: " + response.code());
+                    Log.d("API Response", "Response body: " + jsonObject.toString());
+                    if (jsonObject.get("result").getAsString().equals("true")) {
+                        Log.d("API Response", "Response body: " + jsonObject.toString());
+                        callback.onValidatePasswordSuccess(jsonObject);
+                    } else {
+
+                        callback.onValidatePasswordFailure("Password is incorrect");
+                    }
+                } else {
+                    JsonObject errorObject;
+                    String errorMessage;
+                    try {
+
+                        String errorBodyString = response.errorBody().string();
+                        Log.d("API Error", "Response body: " + errorBodyString);
+                        errorObject = new Gson().fromJson(errorBodyString, JsonObject.class);
+                        errorMessage = errorObject.get("message").getAsString();
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                    callback.onValidatePasswordFailure(errorMessage);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<JsonObject> call, Throwable t) {
+                Log.d("4th", "I am here ");
+                Log.d("API Failure", t.getMessage());
+                Log.d("API Response Code", String.valueOf(call.request().url()));
+                callback.onValidatePasswordFailure("Password is incorrect");
+            }
+        });
+
+    }
+
+    public void updateUser(String token,String changedFirstname, String changedLastname, String changedBday, String changedEmail, UpdateUserCallback updateUserCallback) {
+        Call<JsonObject> call = userService.updateUser(token , new UserUpdatedInfos(changedFirstname, changedLastname, changedBday, changedEmail));
+
+        call.enqueue(new Callback<JsonObject>() {
+            @Override
+            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+                JsonObject jsonObject = response.body();
+                if (jsonObject != null) {
+                    Log.d("API Response", "Response code: " + response.code());
+                    Log.d("API Response", "Response body: " + jsonObject.toString());
+                    updateUserCallback.onUpdateUserSuccess(jsonObject);
+                } else {
+                    Log.d("API Response", "Response code: " + response.code());
+                    updateUserCallback.onUpdateUserFailure("Response body is null");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<JsonObject> call, Throwable t) {
+                Log.d("I AM", "HERE");
+                updateUserCallback.onUpdateUserFailure(t.getMessage());
+            }
+        });
+    }
+
+    public void updateUserPassword(String token ,String pwd, UpdateUserCallback updateUserCallback) {
+        Call<JsonObject> call = userService.updateUserPassword(token,new UpdatePwd(pwd));
+
+        call.enqueue(new Callback<JsonObject>() {
+            @Override
+            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+                JsonObject jsonObject= response.body();
+                if (jsonObject != null) {
+                    Log.d("API Response", "Response code: " + response.code());
+                    Log.d("API Response", "Response body: " + jsonObject.toString());
+                    updateUserCallback.onUpdateUserSuccess(jsonObject);
+                } else {
+                    updateUserCallback.onUpdateUserFailure("Response body is null");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<JsonObject> call, Throwable t) {
+                updateUserCallback.onUpdateUserFailure(t.getMessage());
+            }
+        });
+    }
 }

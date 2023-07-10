@@ -23,7 +23,7 @@
     <string name="event">Event</string>
     <string name="events">Events</string>
     <string name="titleEvents">🎪 ~ Events ~ 🎪</string>
-    <string name="birthday">Birthday :</string>
+    <string name="birthday">Birthday </string>
     <string name="profileSignUpDate">Sign-Up date :</string>
     <string name="profileFidelityPoints">Fidelity Points :</string>
     <string name="upcomingEvents">🎪 ~ Upcoming events ~ 🎪</string>
@@ -41,5 +41,19 @@
     <string name="disconnectMessage">Are you sure you want to disconnect ?</string>
     <string name="disconnect">Disconnect</string>
     <string name="cancelButton">Cancel</string>
+    <string name="edit_profile">Edit your profile\n</string>
+    <string name="first_name">Firstname</string>
+    <string name="lastname">Lastname</string>
+    <string name="save">Save</string>
+    <string name="cancel">Cancel</string>
+    <string name="current_password">Current password</string>
+    <string name="new_password">New password</string>
+    <string name="passwords_not_matching">Password and confirmation must match</string>
+    <string name="password_required">Current password is empty or incorrect</string>
+    <string name="password_not_secure">New password does not meet requiered conditions.\nMust have :\n-2 lowercase letters\n-2 uppercase letters\n-2 numbers\n-2 special characters</string>
+    <string name="password_update_failed">A problem as occured while updating your password.\nPlease try again later.</string>
+    <string name="incorrect_password">Incorrect password</string>
+    <string name="infos_updated_successfully">"Your informations have been successfully updated.\nPlease press return to go back. "</string>
+    <string name="goBack">Return</string>
 
 </resources>
