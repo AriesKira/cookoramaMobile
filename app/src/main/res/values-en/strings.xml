@@ -55,5 +55,8 @@
     <string name="incorrect_password">Incorrect password</string>
     <string name="infos_updated_successfully">"Your informations have been successfully updated.\nPlease press return to go back. "</string>
     <string name="goBack">Return</string>
+    <string name="fatal_error">Fatal ERROR</string>
+    <string name="fatal_error_occured">A fatal error has occured.\nWe are sorry for the inconvinience.\nPlease restart the app.</string>
+    <string name="ok">OK</string>
 
 </resources>

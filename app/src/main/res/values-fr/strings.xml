@@ -39,5 +39,6 @@
     <string name="disconnectMessage">Voulez-vous vous déconnceter ?</string>
     <string name="disconnect">Déconnexion</string>
     <string name="cancelButton">Annuler</string>
+    <string name="ok">OK</string>
 
 </resources>

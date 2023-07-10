@@ -175,7 +175,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:paddingTop="40dp">
+        android:paddingTop="40dp"
+        android:id="@+id/profileEventsHolder">
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

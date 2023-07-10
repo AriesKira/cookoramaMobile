@@ -272,8 +272,7 @@ public class ApiRequest {
                         Log.d("API Response", "Response body: " + jsonObject.toString());
                         callback.onValidatePasswordSuccess(jsonObject);
                     } else {
-
-                        callback.onValidatePasswordFailure("Password is incorrect");
+                        callback.onValidatePasswordFailure(jsonObject);
                     }
                 } else {
                     JsonObject errorObject;
@@ -287,16 +286,20 @@ public class ApiRequest {
                     } catch (IOException e) {
                         throw new RuntimeException(e);
                     }
-                    callback.onValidatePasswordFailure(errorMessage);
+                    callback.onValidatePasswordFailure(errorObject);
                 }
             }
 
             @Override
             public void onFailure(Call<JsonObject> call, Throwable t) {
-                Log.d("4th", "I am here ");
                 Log.d("API Failure", t.getMessage());
                 Log.d("API Response Code", String.valueOf(call.request().url()));
-                callback.onValidatePasswordFailure("Password is incorrect");
+                JsonObject errorObject;
+
+                errorObject = new JsonObject();
+                errorObject.addProperty("message", "Server Error");
+
+                callback.onValidatePasswordFailure(errorObject);
             }
         });
 

@@ -1,7 +1,9 @@
 package com.example.cookmaster.activity;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
@@ -141,8 +143,28 @@ public class EditProfileActivity extends AppCompatActivity {
                         }
 
                         @Override
-                        public void onValidatePasswordFailure(String errorMessage) {
-                            Toast.makeText(EditProfileActivity.this, getResources().getString(R.string.incorrect_password), Toast.LENGTH_LONG).show();
+                        public void onValidatePasswordFailure(JsonObject errorMessage) {
+                            Toast.makeText(EditProfileActivity.this, getResources().getString(R.string.incorrect_password), Toast.LENGTH_SHORT).show();
+                            SharedPreferences.Editor editor = settings.edit();
+                            if (errorMessage.get("token") != null) {
+                                editor.putString("token", errorMessage.get("token").getAsString());
+                                editor.apply();
+                            }else {
+                                editor.putString("token", "-1");
+                                editor.apply();
+                                AlertDialog alertDialog = new AlertDialog.Builder(EditProfileActivity.this).create();
+                                alertDialog.setTitle(getResources().getString(R.string.fatal_error));
+                                alertDialog.setMessage(getResources().getString(R.string.fatal_error_occured));
+                                alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, getResources().getString(R.string.ok),
+                                        new DialogInterface.OnClickListener() {
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                dialog.dismiss();
+                                                finish();
+                                            }
+                                        });
+                                alertDialog.show();
+                            }
+
                         }
 
                     });

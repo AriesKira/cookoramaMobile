@@ -4,5 +4,5 @@ import com.google.gson.JsonObject;
 
 public interface OnValidatePasswordCallback {
     void onValidatePasswordSuccess(JsonObject token);
-    void onValidatePasswordFailure(String errorMessage);
+    void onValidatePasswordFailure(JsonObject errorObject);
 }

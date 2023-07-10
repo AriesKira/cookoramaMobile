@@ -14,8 +14,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,6 +36,8 @@ public class ProfileFragment extends Fragment {
     ImageView profilePicture;
     ImageButton editProfileButton,disconnectButton;
     LottieAnimationView loadingAnimation;
+    FrameLayout profileScrollView;
+    LinearLayout profileEvents;
 
     static final String IMAGE_URL = "https://cookorama.fr/ressources/images/profilePicture/";
 
@@ -57,9 +62,13 @@ public class ProfileFragment extends Fragment {
         profileFidelityPoints = view.findViewById(R.id.profileFidelityPoints);
         profilePicture = view.findViewById(R.id.UserPPHolder);
         loadingAnimation = view.findViewById(R.id.animationView);
-
+        profileScrollView = view.findViewById(R.id.scrollProfile);
+        profileEvents = view.findViewById(R.id.profileEventsHolder);
         editProfileButton = view.findViewById(R.id.editProfileButton);
         disconnectButton = view.findViewById(R.id.disconnectButton);
+
+        profileScrollView.setVisibility(View.GONE);
+        profileEvents.setVisibility(View.GONE);
 
         disconnectButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -110,6 +119,8 @@ public class ProfileFragment extends Fragment {
                 @Override
                 public void onConnectionSuccess(JsonObject userInfos) {
                     loadingAnimation.setVisibility(View.GONE);
+                    profileScrollView.setVisibility(View.VISIBLE);
+                    profileEvents.setVisibility(View.VISIBLE);
                     Log.d("API Response", "User Infos: " + userInfos.toString());
                     Log.d("API CALL", "SUCCESS");
 
