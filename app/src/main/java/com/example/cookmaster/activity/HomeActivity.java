@@ -1,6 +1,12 @@
 package com.example.cookmaster;
 
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.Intent;
+import android.nfc.NfcAdapter;
+import android.nfc.NfcManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.EditText;
 
@@ -10,26 +16,33 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.example.cookmaster.activity.MemoryGameActivity;
+import com.example.cookmaster.classes.NfcReceiver;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class HomeActivity extends AppCompatActivity {
-    private EditText emailInput, pwdInput;
     private BottomNavigationView bottomNav;
 
     private Fragment currentFragment;
+    private PendingIntent mPendingIntent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home_activity);
 
+        Intent intent = new Intent(this, getClass());
+        intent.setAction("NFC");
+
+        mPendingIntent = PendingIntent.getActivity(this, 0, intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP), PendingIntent.FLAG_IMMUTABLE);
+
+
         bottomNav = findViewById(R.id.bottom_navbar);
 
-        getSupportActionBar().hide();
 
         FragmentManager fragmentManager = getSupportFragmentManager();
 
-        fragmentManager.beginTransaction().replace(R.id.home_activity_container, new HomeFragment()).commit();
+        fragmentManager.beginTransaction().replace(R.id.home_activity_container, new com.example.cookmaster.HomeFragment()).commit();
 
         bottomNav.setSelectedItemId(R.id.nav_home);
 
@@ -64,5 +77,25 @@ public class HomeActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        NfcAdapter.getDefaultAdapter(this).enableForegroundDispatch(this, mPendingIntent, null, null);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        NfcAdapter.getDefaultAdapter(this).disableForegroundDispatch(this);
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        String action = intent.getAction();
+        if (action.equals("NFC")) {
+            startActivity(new Intent(this, MemoryGameActivity.class));
+        }
+    }
 }
 

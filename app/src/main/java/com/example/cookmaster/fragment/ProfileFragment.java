@@ -18,16 +18,13 @@ import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ScrollView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.example.cookmaster.Utils.ImageHandler;
 import com.example.cookmaster.activity.EditProfileActivity;
 import com.example.cookmaster.classes.ApiRequest;
 import com.example.cookmaster.interfaces.UserCallback;
-import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
 public class ProfileFragment extends Fragment {

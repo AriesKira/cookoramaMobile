@@ -1,5 +1,7 @@
 package com.example.cookmaster.classes;
 
+import com.example.cookmaster.R;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -9,38 +11,37 @@ public class MemoryGame {
 
     public MemoryGame() {
         // Créez les objets d'image et formez des paires
-        imageObjects = new ArrayList<>();
+        this.imageObjects = new ArrayList<>();
 
         // Ajoutez vos images ici
-        imageObjects.add(new ImageObject("burger", "path_to_image1"));
-        imageObjects.add(new ImageObject("tomato", "path_to_image2"));
-        imageObjects.add(new ImageObject("eggs", "path_to_image2"));
-        imageObjects.add(new ImageObject("iceCream", "path_to_image2"));
-        imageObjects.add(new ImageObject("drink", "path_to_image2"));
-        // ...
+        this.imageObjects.add(new ImageObject("burger", R.drawable.memory_burger));
+        this.imageObjects.add(new ImageObject("tomato", R.drawable.memory_tomato));
+        this.imageObjects.add(new ImageObject("eggs", R.drawable.memory_eggs));
+        this.imageObjects.add(new ImageObject("iceCream", R.drawable.memory_ice_cream));
+        this.imageObjects.add(new ImageObject("drink", R.drawable.memory_drink));
+        this.imageObjects.add(new ImageObject("fries", R.drawable.memory_fries));
+
 
         // Dupliquez les objets d'image pour former des paires
         List<ImageObject> pairedImageObjects = new ArrayList<>(imageObjects);
-        imageObjects.addAll(pairedImageObjects);
+        this.imageObjects.addAll(pairedImageObjects);
 
         // Mélangez l'ordre des objets d'image
-        Collections.shuffle(imageObjects);
+        Collections.shuffle(this.imageObjects);
     }
 
     public void startGame() {
         // Logique du jeu de mémoire
         // Par exemple, afficher les images et gérer les sélections des joueurs
     }
-}
 
-class ImageObject {
-    private String id;
-    private String imagePath;
-
-    public ImageObject(String id, String imagePath) {
-        this.id = id;
-        this.imagePath = imagePath;
+    public void endGame() {
+        // Logique de fin de jeu
+        // Par exemple, afficher un message de fin de jeu
     }
 
-    // Ajoutez des getters et des setters si nécessaire
+    public List<ImageObject> getImageObjects() {
+        return imageObjects;
+    }
 }
+

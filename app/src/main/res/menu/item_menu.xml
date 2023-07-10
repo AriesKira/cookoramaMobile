@@ -6,14 +6,11 @@
         android:title="@string/home" />
     <item android:id="@+id/nav_shop"
         android:icon="@drawable/ic_shop"
-        android:title="@string/shop" />
+        android:title="@string/shop"
+        />
 
     <item android:id="@+id/nav_profile"
         android:icon="@drawable/ic_profile"
         android:title="@string/profile" />
-
-
-
-
 
 </menu>
