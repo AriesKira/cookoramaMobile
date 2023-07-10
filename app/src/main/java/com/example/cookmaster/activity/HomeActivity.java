@@ -40,17 +40,11 @@ public class HomeActivity extends AppCompatActivity {
                 case R.id.nav_home:
                     display = new HomeFragment();
                     break;
-                case R.id.nav_search:
-                    display = new SearchFragment();
-                    break;
                 case R.id.nav_shop:
                     display = new ShopFragment();
                     break;
                 case R.id.nav_profile:
                     display = new ProfileFragment();
-                    break;
-                case R.id.nav_recipe:
-                    display = new RecipeFragment();
                     break;
             }
 
