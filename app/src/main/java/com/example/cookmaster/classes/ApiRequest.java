@@ -7,6 +7,7 @@ import com.example.cookmaster.interfaces.OnValidatePasswordCallback;
 import com.example.cookmaster.interfaces.ProductService;
 import com.example.cookmaster.interfaces.ProductsCallback;
 import com.example.cookmaster.interfaces.LoginUserCallback;
+import com.example.cookmaster.interfaces.UpdateFidelityCallback;
 import com.example.cookmaster.interfaces.UpdateUserCallback;
 import com.example.cookmaster.interfaces.UserCallback;
 import com.example.cookmaster.interfaces.UserService;
@@ -353,7 +354,25 @@ public class ApiRequest {
         });
     }
 
-    public void postScore(String token, int score) {
+    public void postScore(String token, int score, UpdateFidelityCallback userCallback) {
+        Call<JsonObject> call = userService.postScore(token, new UpdateFidelity(score));
 
+        call.enqueue(new Callback<JsonObject>() {
+            @Override
+            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+                JsonObject jsonObject= response.body();
+                if (jsonObject != null) {
+                    Log.d("API Response", "Response code: " + response.code());
+                    Log.d("API Response", "Response body: " + jsonObject.toString());
+                } else {
+                    Log.d("API Response", "Response code: " + response.code());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<JsonObject> call, Throwable t) {
+                Log.d("Error", "Update score failed");
+            }
+        });
     }
 }

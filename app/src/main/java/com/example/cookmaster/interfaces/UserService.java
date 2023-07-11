@@ -2,6 +2,7 @@ package com.example.cookmaster.interfaces;
 
 import com.example.cookmaster.classes.CheckPwd;
 import com.example.cookmaster.classes.LoginRequest;
+import com.example.cookmaster.classes.UpdateFidelity;
 import com.example.cookmaster.classes.UpdatePwd;
 import com.example.cookmaster.classes.UserUpdatedInfos;
 import com.google.gson.JsonObject;
@@ -41,5 +42,9 @@ public interface UserService {
     @POST("user/updatePassword")
     @Headers("Content-Type: application/json")
     Call<JsonObject> updateUserPassword(@Header("Authorization") String token,@Body UpdatePwd pwd);
+
+    @POST("user/updateFidelity")
+    @Headers("Content-Type: application/json")
+    Call<JsonObject> postScore(@Header("Authorization") String token,@Body UpdateFidelity fidelity);
 }
 

@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.util.Log;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -15,6 +16,10 @@ import com.example.cookmaster.R;
 import com.example.cookmaster.classes.ApiRequest;
 import com.example.cookmaster.classes.ButtonObject;
 import com.example.cookmaster.classes.MemoryGame;
+import com.example.cookmaster.interfaces.UpdateFidelityCallback;
+import com.example.cookmaster.interfaces.UpdateUserCallback;
+import com.example.cookmaster.interfaces.UserCallback;
+import com.google.gson.JsonObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -159,7 +164,23 @@ public class MemoryGameActivity extends AppCompatActivity {
                         SharedPreferences sharedPreferences = getSharedPreferences("PREFS", MODE_PRIVATE);
 
                         apiRequest = new ApiRequest();
-                        apiRequest.postScore(sharedPreferences.getString("token","-1"),game.getScore());
+                        apiRequest.postScore(sharedPreferences.getString("token", "-1"), game.getScore(), new UpdateFidelityCallback() {
+
+                            @Override
+                            public void onUpdateFidelitySuccess(JsonObject userInfos) {
+                                SharedPreferences.Editor editor = sharedPreferences.edit();
+                                editor.putInt("token", userInfos.get("token").getAsInt());
+                                editor.apply();
+                            }
+
+                            @Override
+                            public void onUpdateFidelityFailure(JsonObject errorMessage) {
+                                SharedPreferences.Editor editor = sharedPreferences.edit();
+                                editor.putInt("token", errorMessage.get("token").getAsInt());
+                                editor.apply();
+                                Log.d("ERROR", "Fidelity update failed");
+                            }
+                        });
                         finish();
                     }
                 })
