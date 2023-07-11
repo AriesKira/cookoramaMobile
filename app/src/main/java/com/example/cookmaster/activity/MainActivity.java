@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -18,7 +19,9 @@ import com.example.cookmaster.interfaces.LoginUserCallback;
 
 public class MainActivity extends AppCompatActivity {
 
-
+    private static final String URL = "https://cookorama.fr/profil/resetPassword";
+    private Uri webpage = Uri.parse(URL);
+    private String noBrowserError = String.valueOf(R.string.no_browser_error);
     private Button loginBtn, pwdResetBtn;
     private EditText emailInput, pwdInput;
 
@@ -30,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
+        Intent intent = getIntent();
         SharedPreferences settings = getSharedPreferences("PREFS", MODE_PRIVATE);
         this.loginBtn = findViewById(R.id.loginBtn);
         this.pwdResetBtn = findViewById(R.id.pwdResetBtn);
@@ -39,6 +42,18 @@ public class MainActivity extends AppCompatActivity {
         this.loadingAnimation = findViewById(R.id.animationView);
 
         apiRequest = new ApiRequest();
+
+        pwdResetBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent reset = new Intent(Intent.ACTION_VIEW, webpage);
+                if (intent.resolveActivity(getPackageManager()) != null) {
+                    startActivity(reset);
+                } else {
+                    Toast.makeText(MainActivity.this, noBrowserError + URL, Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
 
         loadingAnimation.setVisibility(View.VISIBLE);
         if (settings.contains("token") && !settings.getString("token", "-2").equals("-1")) {
