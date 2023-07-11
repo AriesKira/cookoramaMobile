@@ -4,16 +4,19 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.util.Log;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.cookmaster.R;
-import com.example.cookmaster.classes.ImageObject;
+import com.example.cookmaster.classes.ApiRequest;
+import com.example.cookmaster.classes.ButtonObject;
 import com.example.cookmaster.classes.MemoryGame;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MemoryGameActivity extends AppCompatActivity {
@@ -22,15 +25,20 @@ public class MemoryGameActivity extends AppCompatActivity {
     private TextView timer, score, startTimer;
     private ImageButton btn1, btn2, btn3, btn4, btn5, btn6, btn7, btn8, btn9, btn10,btn11,btn12, backBtn, submitBtn;
 
-    private int btn1Img, btn2Img, btn3Img, btn4Img, btn5Img, btn6Img, btn7Img, btn8Img, btn9Img, btn10Img, btn11Img, btn12Img;
 
     private CountDownTimer countDownTimer;
     private final long INITIAL_COUNTDOWN_DURATION = 3000;
     private final long COUNTDOWN_INTERVAL = 1000;
 
-    MemoryGame game = new MemoryGame();
 
-    List<ImageObject> imageObjects = game.getImageObjects();
+    MemoryGame game;
+
+    List<ImageButton> buttons;
+    List<Integer> imagePaths;
+
+    List<ButtonObject> buttonObjects;
+
+    ApiRequest apiRequest;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,54 +51,52 @@ public class MemoryGameActivity extends AppCompatActivity {
         btn1 = findViewById(R.id.btn1);
         btn2 = findViewById(R.id.btn2);
         btn3 = findViewById(R.id.btn3);
-        btn4= findViewById(R.id.btn4);
-        btn5= findViewById(R.id.btn5);
-        btn6= findViewById(R.id.btn6);
-        btn7= findViewById(R.id.btn7);
-        btn8= findViewById(R.id.btn8);
-        btn9= findViewById(R.id.btn9);
-        btn10= findViewById(R.id.btn10);
-        btn11= findViewById(R.id.btn11);
-        btn12= findViewById(R.id.btn12);
+        btn4 = findViewById(R.id.btn4);
+        btn5 = findViewById(R.id.btn5);
+        btn6 = findViewById(R.id.btn6);
+        btn7 = findViewById(R.id.btn7);
+        btn8 = findViewById(R.id.btn8);
+        btn9 = findViewById(R.id.btn9);
+        btn10 = findViewById(R.id.btn10);
+        btn11 = findViewById(R.id.btn11);
+        btn12 = findViewById(R.id.btn12);
         backBtn = findViewById(R.id.backBtn);
         submitBtn = findViewById(R.id.submitBtn);
 
+        buttons = new ArrayList<>();
+        imagePaths = new ArrayList<>();
 
-        btn1Img = imageObjects.get(0).getImagePath();
-        btn2Img = imageObjects.get(1).getImagePath();
-        btn3Img = imageObjects.get(2).getImagePath();
-        btn4Img = imageObjects.get(3).getImagePath();
-        btn5Img = imageObjects.get(4).getImagePath();
-        btn6Img = imageObjects.get(5).getImagePath();
-        btn7Img = imageObjects.get(6).getImagePath();
-        btn8Img = imageObjects.get(7).getImagePath();
-        btn9Img = imageObjects.get(8).getImagePath();
-        btn10Img = imageObjects.get(9).getImagePath();
-        btn11Img = imageObjects.get(10).getImagePath();
-        btn12Img = imageObjects.get(11).getImagePath();
+        buttons.add(btn1);
+        buttons.add(btn2);
+        buttons.add(btn3);
+        buttons.add(btn4);
+        buttons.add(btn5);
+        buttons.add(btn6);
+        buttons.add(btn7);
+        buttons.add(btn8);
+        buttons.add(btn9);
+        buttons.add(btn10);
+        buttons.add(btn11);
+        buttons.add(btn12);
 
+        imagePaths.add(R.drawable.memory_burger);
+        imagePaths.add(R.drawable.memory_drink);
+        imagePaths.add(R.drawable.memory_eggs);
+        imagePaths.add(R.drawable.memory_fries);
+        imagePaths.add(R.drawable.memory_ice_cream);
+        imagePaths.add(R.drawable.memory_tomato);
+
+        game = new MemoryGame(buttons, imagePaths);
+        buttonObjects = game.getButtonObjectList();
+
+        flipAllCards(buttonObjects, false);
 
         new AlertDialog.Builder(MemoryGameActivity.this)
-                .setTitle("Memory Game")
-                .setMessage("Welcome to the memory game! You have 3 seconds to memorize the images. After that, you will have to find the pairs. Good luck!")
+                .setTitle(getResources().getString(R.string.welcome_memory))
+                .setMessage(getResources().getString(R.string.rules_memory))
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-
-                        flipCard(btn1, btn1Img, false);
-                        flipCard(btn2, btn2Img, false);
-                        flipCard(btn3, btn3Img, false);
-                        flipCard(btn4, btn4Img, false);
-                        flipCard(btn5, btn5Img, false);
-                        flipCard(btn6, btn6Img, false);
-                        flipCard(btn7, btn7Img, false);
-                        flipCard(btn8, btn8Img, false);
-                        flipCard(btn9, btn9Img, false);
-                        flipCard(btn10, btn10Img, false);
-                        flipCard(btn11, btn11Img, false);
-                        flipCard(btn12, btn12Img, false);
-
-
                         countDownTimer = new CountDownTimer(INITIAL_COUNTDOWN_DURATION, COUNTDOWN_INTERVAL) {
                             @Override
                             public void onTick(long millisUntilFinished) {
@@ -100,22 +106,10 @@ public class MemoryGameActivity extends AppCompatActivity {
 
                             @Override
                             public void onFinish() {
-                                flipCard(btn1, btn1Img, true);
-                                flipCard(btn2, btn2Img, true);
-                                flipCard(btn3, btn3Img, true);
-                                flipCard(btn4, btn4Img, true);
-                                flipCard(btn5, btn5Img, true);
-                                flipCard(btn6, btn6Img, true);
-                                flipCard(btn7, btn7Img, true);
-                                flipCard(btn8, btn8Img, true);
-                                flipCard(btn9, btn9Img, true);
-                                flipCard(btn10, btn10Img, true);
-                                flipCard(btn11, btn11Img, true);
-                                flipCard(btn12, btn12Img, true);
 
+                                flipAllCards(buttonObjects, true);
                                 startTimer.setText("Go!");
-
-                                //game.startGame();
+                                startGame();
                             }
                         };
                         countDownTimer.start();
@@ -123,16 +117,111 @@ public class MemoryGameActivity extends AppCompatActivity {
                     }
                 })
                 .show();
+
+
+        backBtn.setOnClickListener(v -> {
+            finish();
+        });
+
+        submitBtn.setOnClickListener(v -> {
+            if (game.checkSelectedButtons()) {
+                flipCard(game.getSelectedButtons().get(0), false);
+                flipCard(game.getSelectedButtons().get(1), false);
+                game.addScore();
+                score.setText(Integer.toString(game.getScore()));
+                buttonObjects.remove(game.getSelectedButtons().get(0));
+                buttonObjects.remove(game.getSelectedButtons().get(1));
+                game.clearSelectedButtons();
+            }else {
+                Toast.makeText(MemoryGameActivity.this, getResources().getString(R.string.wrong), Toast.LENGTH_SHORT).show();
+                flipCard(game.getSelectedButtons().get(0), true);
+                flipCard(game.getSelectedButtons().get(1), true);
+                game.clearSelectedButtons();
+            }
+
+            if (buttonObjects.isEmpty()) {
+                endGame();
+            }
+
+        });
+
+
+    }
+
+    private void endGame() {
+        timer.setText(getResources().getString(R.string.done));
+        new AlertDialog.Builder(MemoryGameActivity.this)
+                .setTitle(getResources().getString(R.string.finished_game_title))
+                .setMessage(getResources().getString(R.string.finished_game, game.getScore()))
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        SharedPreferences sharedPreferences = getSharedPreferences("PREFS", MODE_PRIVATE);
+
+                        apiRequest = new ApiRequest();
+                        apiRequest.postScore(sharedPreferences.getString("token","-1"),game.getScore());
+                        finish();
+                    }
+                })
+                .show();
     }
 
 
-    private void flipCard(ImageButton btn, int img ,boolean isFlipped) {
-        if (isFlipped) {
-            btn.setImageResource(HIDDEN_FACE);
+    public void flipAllCards(List<ButtonObject> buttonObjects,boolean isHidden) {
+        if (isHidden) {
+            for (ButtonObject buttonObject : buttonObjects) {
+                buttonObject.getImageButton().setImageResource(HIDDEN_FACE);
+            }
         } else {
-            btn.setImageResource(img);
+            for (ButtonObject buttonObject : buttonObjects) {
+                buttonObject.getImageButton().setImageResource(buttonObject.getImagePath());
+            }
         }
     }
 
+    public void flipCard(ButtonObject buttonObject, boolean isHidden) {
+        if (isHidden) {
+            buttonObject.getImageButton().setImageResource(HIDDEN_FACE);
+        } else {
+            buttonObject.getImageButton().setImageResource(buttonObject.getImagePath());
+        }
+    }
 
+    public void startGame() {
+        startGameTimer();
+        for (ButtonObject buttonObject : buttonObjects) {
+            buttonObject.getImageButton().setOnClickListener(v -> {
+                game.addSelectedButton(buttonObject);
+            });
+        }
+
+
+    }
+
+    public void startGameTimer() {
+        countDownTimer = new CountDownTimer(30000, 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                long secondsRemaining = millisUntilFinished / 1000;
+                timer.setText(Long.toString(secondsRemaining));
+            }
+
+            @Override
+            public void onFinish() {
+                timer.setText(getResources().getString(R.string.done));
+                new AlertDialog.Builder(MemoryGameActivity.this)
+                        .setTitle(getResources().getString(R.string.finished_game_title))
+                        .setMessage(getResources().getString(R.string.times_up, game.getScore()))
+                        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                finish();
+                            }
+                        })
+                        .show();
+
+            }
+        };
+        countDownTimer.start();
+    }
 }

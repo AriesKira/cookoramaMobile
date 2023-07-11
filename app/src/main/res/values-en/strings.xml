@@ -62,5 +62,12 @@
     <string name="timer">Timer :</string>
     <string name="points" />
     <string name="startTimer" />
+    <string name="finished_game">Well played ! You scored %d points</string>
+    <string name="done">Done !</string>
+    <string name="times_up">Time\'s up ! You scored %d points.</string>
+    <string name="wrong">Wrong !</string>
+    <string name="welcome_memory">Welcome to the Memory Game</string>
+    <string name="rules_memory">\"Welcome to the memory game! You have 3 seconds to memorize the images. After that, you will have to find the pairs. Good luck!\"</string>
+    <string name="finished_game_title">Game over !</string>
 
 </resources>

@@ -352,4 +352,8 @@ public class ApiRequest {
             }
         });
     }
+
+    public void postScore(String token, int score) {
+
+    }
 }

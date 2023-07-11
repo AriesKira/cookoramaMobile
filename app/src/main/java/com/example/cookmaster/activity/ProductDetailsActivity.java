@@ -32,8 +32,6 @@ public class ProductDetailsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_details);
 
-        getSupportActionBar().hide();
-
         productDescription = findViewById(R.id.productDescription);
         productImage = findViewById(R.id.productImage);
         productName = findViewById(R.id.productName);

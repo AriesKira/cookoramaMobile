@@ -41,6 +41,14 @@
     <string name="cancelButton">Annuler</string>
     <string name="ok">OK</string>
     <string name="points" />
+    <string name="secret_memory_game">Secret memory game</string>
+    <string name="timer">Timer :</string>
     <string name="startTimer" />
-
+    <string name="finished_game">Bravo ! Tu as obtenu %d points</string>
+    <string name="done">Fini !</string>
+    <string name="times_up">Temps écoulé ! Tu as obtenu %d points.</string>
+    <string name="wrong">Faux !</string>
+    <string name="welcome_memory">Bienvenue au jeu de mémoire</string>
+    <string name="rules_memory">\"Bienvenue au jeu de mémoire! Tu as 3 secondes pour mémoriser les images. Après ça, tu devras trouver les pairs. Bonne chance!\"</string>
+    <string name="finished_game_title">Jeu terminer !</string>
 </resources>
