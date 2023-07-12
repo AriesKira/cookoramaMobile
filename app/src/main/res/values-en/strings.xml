@@ -69,5 +69,6 @@
     <string name="welcome_memory">Welcome to the Memory Game</string>
     <string name="rules_memory">\"Welcome to the memory game! You have 3 seconds to memorize the images. After that, you will have to find the pairs. Good luck!\"</string>
     <string name="finished_game_title">Game over !</string>
+    <string name="nfc_not_available">NFC not available or not enabled</string>
 
 </resources>

@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -80,12 +81,20 @@ public class HomeActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        if (NfcAdapter.getDefaultAdapter(this) == null || !NfcAdapter.getDefaultAdapter(this).isEnabled()) {
+            Toast.makeText(this, getResources().getString(R.string.nfc_not_available), Toast.LENGTH_SHORT).show();
+            return;
+        }
         NfcAdapter.getDefaultAdapter(this).enableForegroundDispatch(this, mPendingIntent, null, null);
     }
 
     @Override
     protected void onPause() {
         super.onPause();
+        if (NfcAdapter.getDefaultAdapter(this) == null || !NfcAdapter.getDefaultAdapter(this).isEnabled()) {
+            Toast.makeText(this, getResources().getString(R.string.nfc_not_available), Toast.LENGTH_SHORT).show();
+            return;
+        }
         NfcAdapter.getDefaultAdapter(this).disableForegroundDispatch(this);
     }
 
